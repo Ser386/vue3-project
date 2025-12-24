@@ -1,7 +1,10 @@
 import { setToken as _setToken, getToken, removeToken } from "@@/utils/cache/cookies"
 import { pinia } from "@/pinia"
 import { useTagsViewStore } from "./tags-view"
-
+import { useSettingsStore } from "./settings"
+import { getCurrentUserApi } from "@@/apis/users"
+import { resetRouter } from "@/router"
+import { routerConfig } from "@/router/config"
 export const useUserStore = defineStore("user",()=>{
     const token=ref<string>(getToken()||"")
     const roles = ref<string[]>([])
@@ -37,7 +40,7 @@ export const useUserStore = defineStore("user",()=>{
     const resetTagsView=()=>{
         if(!settingStore.cacheTagsView){
             tagsViewStore.delAllVisitedViews()
-            tagsViewStore.delAllCachedViews
+            tagsViewStore.delAllCachedViews()
         }
     }
     // 退出登录

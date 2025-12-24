@@ -12,7 +12,7 @@ export function getCaptchaApi(){
 
 }
 export function loginApi(data:Auth.LoginRequestData){
-    return request<Auth.LoginRequestData>({
+    return request<Auth.LoginResponseData>({
         url:'auth/login',
         method:"post",
         data

@@ -11,6 +11,11 @@ const {isFocus,handleBlur,handleFocus} = useFocus()
 const loading=ref(false)
 // 验证码图片url
 const codeUrl=ref("")
+const loginFormData:LoginRequestData=reactive({
+    username:'admin',
+    password:"12345678",
+    code:""
+})
 // 创建验证码
 function createCode(){
     // 清空已输入的验证码
@@ -25,11 +30,6 @@ function createCode(){
 // 页面加载的时候调用一次createCode
 createCode()
 
-const loginFormData:LoginRequestData=reactive({
-    username:'admin',
-    password:"12345678",
-    code:""
-})
 const loginFormRules:FormRules={
     username:[
         // trigger:"blur" 失去焦点时触发校验
@@ -51,9 +51,9 @@ function handleLogin(){
             return
         }
         loading.value=true; //加载中按钮
-        loginApi(loginFormData).then({data})=>{
+        loginApi(loginFormData).then(({data})=>{
             
-        }
+        })
     })
 }
 </script>

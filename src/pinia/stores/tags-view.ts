@@ -2,7 +2,7 @@
 
 //RouteLocationNormalizedGeneric是vue-router提供的标准化路由位置类型，包含路由的完整属性
 import type { RouteLocationNormalizedGeneric } from "vue-router" //导入 vue-router 的通用路由类型
-import {getCacheViews,getVisitedViews,setCachedViews,setVisitedViews} from "@@/utils/cache/local-storage"
+import {getCachedViews,getVisitedViews,setCachedViews,setVisitedViews} from "@@/utils/cache/local-storage"
 import { useSettingsStore } from "./settings"
 
 import { pinia } from "@/pinia" 
@@ -19,7 +19,7 @@ export const useTagsViewStore=defineStore("tags-view",()=>{
     // 已访问标签页
     const visitedViews=ref<TagView[]>(cacheTagsView?getVisitedViews():[])
     // 需要被keep-alive缓存的标签页
-    const cachedViews=ref<string[]>(cacheTagsView?getCacheViews():[])
+    const cachedViews=ref<string[]>(cacheTagsView?getCachedViews():[])
     // 只要新增/删除 tab/缓存 就立刻写入localStorage
     watchEffect(()=>{
         setVisitedViews(visitedViews.value)
@@ -87,7 +87,7 @@ export const useTagsViewStore=defineStore("tags-view",()=>{
         visitedViews.value=visitedViews.value.filter(tag=>tag.meta?.affix)
     }
     // 删除所有缓存
-    const delAllCacheViews=()=>{
+    const delAllCachedViews=()=>{
         cachedViews.value=[]
     }
     return{
@@ -95,7 +95,7 @@ export const useTagsViewStore=defineStore("tags-view",()=>{
         cachedViews,
         addCachedView,
         addVisitedView,
-        delAllCacheViews,
+        delAllCachedViews,
         delAllVisitedViews,
         delCachedView,
         delVisitedView,

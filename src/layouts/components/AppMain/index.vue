@@ -2,7 +2,7 @@
 <script lang="ts" setup>
 import { useSettingsStore } from '@/pinia/stores/settings';
 import {useTagsViewStore} from'@/pinia/stores/tags-view';
-import {Footer} from "../index"
+import Footer from '../Footer/index.vue'
 const tagsViewStore=useTagsViewStore();
 const settingsStore=useSettingsStore();
 </script>
@@ -25,7 +25,7 @@ const settingsStore=useSettingsStore();
                 </transition>
             </router-view>
             <!-- 页脚 -->
-             <Footer v-if="settingsStore.showFooter"/>
+            <Footer v-if="settingsStore.showFooter" />
              
         </div>
         <!-- 返回顶部 -->
