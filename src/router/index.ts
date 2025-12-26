@@ -4,6 +4,7 @@ import { routerConfig } from "@/router/config"
 // import {routerConfig} from "@/router/config"
 import { registerNavigationGuard } from "@/router/guard"
 import { flatMultiLevelRoutes } from "./helper"
+import { ElIcon } from "element-plus"
 
 
 const Layouts =()=>import("@/layouts/index.vue")
@@ -11,18 +12,46 @@ const Layouts =()=>import("@/layouts/index.vue")
 // 常驻路由
 export const constantRoutes:RouteRecordRaw[]=[
     {
-        path:"/",
+        path:"/redirect",
         component:Layouts,
-        redirect:"/dashboard",
+        meta:{
+            hidden:true
+        },
         children:[
             {
-                path:"dashboard",
-                component:()=>import("@/pages/dashboard/index.vue"),
-                name:"Dashboard",
+                path:":path(.*)",
+                component:()=>import ("@/pages/redirect/index.vue")
+            }
+        ]
+    },
+    {
+        path:"demo",
+        component:Layouts,
+        redirect:"/demo/unocss",
+        name:"Demo",
+        meta:{
+            title:"示例合集",
+            ElIcon:"DataBoard"
+        },
+        children:[
+            {
+                path:"unocss",
+                component:()=>import("@/pages/demo/unocss/index.vue"),
+                name:"UnoCSS",
                 meta:{
-                    title:"首页",
-                    affix:true
+                    title:"UnoCSS",
+                    elIcon:"Discount"
                 }
+            },
+            {
+                path:"element-plus",
+                component:()=>import("@/pages/demo/element-plus/index.vue"),
+                name:"ElementPlus",
+                meta:{
+                    title:"Element Plus",
+                    keepAlive:true
+                }
+
             }
         ]
 
@@ -34,6 +63,22 @@ export const constantRoutes:RouteRecordRaw[]=[
             title:"登录页",
             hidden:true
         }
+    },{
+        path:"/",
+        component:Layouts,
+        redirect:"/dashboard",
+        children:[{
+            path:"dashboard",
+            component:()=>import("@/pages/dashboard/index.vue"),
+            name:"Dashboard",
+            meta:{
+                title:"首页",
+                svgIcon:"dashboard",
+                // 表示固定页面
+                addix:true
+            }
+        }
+        ]
     }
 ]
 // 动态路由

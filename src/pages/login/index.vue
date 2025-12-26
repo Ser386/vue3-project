@@ -5,7 +5,10 @@ import { useFocus } from "./composables/useFocus"
 import { getCaptchaApi,loginApi } from "./apis"
 import type { LoginRequestData } from "./apis/type"
 import type { FormRules } from "element-plus"
- 
+import { useUserStore } from "@/pinia/stores/user"
+ const userStore = useUserStore() // 用户仓库实例（存token用）
+ const route=useRoute()
+ const router=useRouter()
 const {isFocus,handleBlur,handleFocus} = useFocus()
 // 登录按钮加载状态
 const loading=ref(false)
@@ -51,8 +54,19 @@ function handleLogin(){
             return
         }
         loading.value=true; //加载中按钮
+        // 调用登录接口
         loginApi(loginFormData).then(({data})=>{
-            
+            userStore.setToken(data.token)
+            // 跳转到之前要去的页面
+            router.push(route.query.redirect?decodeURIComponent(route.query.redirect as string):"/")
+        }).catch((err)=>{
+            // 登录失败
+            console.log("登录失败，错误信息:", err)
+            createCode()
+            loginFormData.password=""
+
+        }).finally(()=>{
+            loading.value=false
         })
     })
 }

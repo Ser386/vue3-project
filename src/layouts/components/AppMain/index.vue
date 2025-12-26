@@ -16,16 +16,15 @@ const settingsStore=useSettingsStore();
                 <!-- 页面切换动画 -->
                 <transition name="el-fade-in" mode="out-in">
                     <!-- 控制哪些页面需要缓存 -->
-                    <keep-alive :include="tagsViewStore.cachedViews">
-                        <!-- 动态渲染当前页面，用route.path区分实例 -->
-                         <!-- :is决定当前位置渲染的是哪个组件 :key来区分这个组件是不是原先那个
-                          key相同，则复用组件实例，如果不同，则销毁旧实例创建新实例-->
+                     <!-- 动态渲染当前页面，用route.path区分实例 -->
+                         <!-- :is决定当前位置渲染的是哪个组件 :key来区分这个组件是不是原先那个。key相同，则复用组件实例，如果不同，则销毁旧实例创建新实例-->
+                    <keep-alive :include="tagsViewStore.cachedViews">                       
                         <component :is="Component" :key="route.path" class="app-container-grow"/>
                     </keep-alive>
                 </transition>
             </router-view>
             <!-- 页脚 -->
-            <Footer v-if="settingsStore.showFooter" />
+            <!-- <Footer v-if="settingsStore.showFooter" /> -->
              
         </div>
         <!-- 返回顶部 -->

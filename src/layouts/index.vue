@@ -6,6 +6,7 @@
     import { useDevice } from "@@/composables/useDevice"
     import { useSettingsStore } from "@/pinia/stores/settings";
     import {getCssVar,setCssVar} from "@@/utils/css"
+import { router } from "@/router";
     // import {useWatermark} from "@@/composables/useWatermark"
     
     
@@ -29,12 +30,6 @@
 
 <template>
     <div>
-        <LeftMode v-if="isLeft || isMobile"/>
-        <TopMode v-else-if="isTop"/>
-        <LeftTopMode v-else-if="isLeftTop"/>
-        <!-- 右侧设置面板 -->
-         <RightPanel v-if="showSettings">
-            <Settings/>
-         </RightPanel>
+        <LeftMode v-if="isLeft || isMobile" />
     </div>
 </template>
