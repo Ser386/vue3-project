@@ -118,7 +118,7 @@ export default defineConfig(({ mode }) => {
           ]
         }
       }),
-      // 自动生成 SvgIcon 组件和 SVG 雪碧图
+      // 自动生成 SvgIcon 组件和 SVG 雪碧图，
       SvgComponent({
         iconDir: [resolve(__dirname, "src/common/assets/icons")],
         preserveColor: resolve(__dirname, "src/common/assets/icons/preserve-color"),

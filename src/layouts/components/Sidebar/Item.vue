@@ -3,7 +3,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import Link from "./Link.vue"
 import { isExternal } from "@@/utils/validate"
 import path from "path-browserify"
-import { te } from 'element-plus/es/locales.mjs';
+
 //该组件需要的数据
 interface Props {
     item: RouteRecordRaw //这一级的路由

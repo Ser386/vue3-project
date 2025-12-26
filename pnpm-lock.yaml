@@ -35,6 +35,9 @@ importers:
       nprogress:
         specifier: 0.2.0
         version: 0.2.0
+      path-browser:
+        specifier: ^2.2.1
+        version: 2.2.1
       path-browserify:
         specifier: 1.0.1
         version: 1.0.1
@@ -2691,6 +2694,9 @@ packages:
   parseurl@1.3.3:
     resolution: {integrity: sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==}
     engines: {node: '>= 0.8'}
+
+  path-browser@2.2.1:
+    resolution: {integrity: sha512-/Jd76/sCCmGE/Bjq8R/8uPxUUBDB2ZWBoVomHNmW1mnmnoCpx0DtPvH/9rZG61/ggeyCtd4nijXaeg6z9fwzeg==}
 
   path-browserify@1.0.1:
     resolution: {integrity: sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==}
@@ -6476,6 +6482,8 @@ snapshots:
   parse-statements@1.0.11: {}
 
   parseurl@1.3.3: {}
+
+  path-browser@2.2.1: {}
 
   path-browserify@1.0.1: {}
 

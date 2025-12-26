@@ -24,6 +24,7 @@
     "mitt": "3.0.1",
     "normalize.css": "8.0.1",
     "nprogress": "0.2.0",
+    "path-browser": "^2.2.1",
     "path-browserify": "1.0.1",
     "path-to-regexp": "8.3.0",
     "pinia": "3.0.3",

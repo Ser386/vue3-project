@@ -25,7 +25,7 @@ export const constantRoutes:RouteRecordRaw[]=[
         ]
     },
     {
-        path:"demo",
+        path:"/demo",
         component:Layouts,
         redirect:"/demo/unocss",
         name:"Demo",
