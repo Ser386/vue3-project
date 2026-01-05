@@ -35,7 +35,12 @@ function resolvePath(routePath: string) {
         case isExternal(basePath):
             return basePath
         default:
-            return path.resolve(basePath, routePath)
+            return (
+                [basePath, routePath]
+                    .filter(Boolean)
+                    .join('/')
+                    .replace(/\/+/g, '/')
+            )
     }
 
 }
@@ -65,7 +70,10 @@ function resolvePath(routePath: string) {
             <span v-if="item.meta?.title" class="title">{{ item.meta.title }}</span>
         </template>
         <template v-if="item.children">
-            <Item v-for="child in showingChildren" :key="child.path" :item="child" />
+            <Item v-for="child in showingChildren" 
+            :key="child.path" 
+            :item="child" 
+            :base-path="resolvePath(child.path)"/>
         </template>
 
     </el-sub-menu>
@@ -75,18 +83,18 @@ function resolvePath(routePath: string) {
 @import "@@/assets/styles/mixins.scss";
 
 .svg-icon {
-  min-width: 1em;
-  margin-right: 12px;
-  font-size: 18px;
+    min-width: 1em;
+    margin-right: 12px;
+    font-size: 18px;
 }
 
 .el-icon {
-  width: 1em !important;
-  margin-right: 12px !important;
-  font-size: 18px;
+    width: 1em !important;
+    margin-right: 12px !important;
+    font-size: 18px;
 }
 
 .title {
-  @extend %ellipsis;
+    @extend %ellipsis;
 }
 </style>

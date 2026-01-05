@@ -39,11 +39,17 @@ const tipLineWidth = computed(() => !isTop.value ? "2px" : "0px")
         <!-- 自定义滚动容器组件 -->
         <!-- wrap-class:给内部的 .el-scrollbar__wrap 这个包裹层追加一个 class控制高度、溢出、布局 -->
         <el-scrollbar wrap-class="scrollbar-wrapper">
-            <el-menu :default-active="activeMenu" :collapse="isCollapse && !isTop" :background-color="backgroundColor"
-                :text-color="textColor" :active-text-color="activeTextColor" :collapsed-transition="false"
-                :mode="isTop && !isMobile ? 'horizontal' : 'vertical'">
+            <el-menu :default-active="activeMenu" router 
+            :collapse="isCollapse && !isTop" 
+            :background-color="backgroundColor"
+            :text-color="textColor" 
+            :active-text-color="activeTextColor" 
+            :collapsed-transition="false"
+            :mode="isTop && !isMobile ? 'horizontal' : 'vertical'">
                 <!-- 把路由表变成菜单，每一个route对应一个菜单 -->
-                <Item v-for="noHiddenRoute in noHiddenRoutes" :key="noHiddenRoute.path" :item="noHiddenRoute"
+                <Item v-for="noHiddenRoute in noHiddenRoutes" 
+                    :key="noHiddenRoute.path" 
+                    :item="noHiddenRoute"
                     :base-path="noHiddenRoute.path" />
             </el-menu>
         </el-scrollbar>
