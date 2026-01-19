@@ -4,17 +4,29 @@ import { useAppStore } from '@/pinia/stores/app';
 import { useLayoutMode } from "@@/composables/useLayoutMode"
 import { useDevice } from "@@/composables/useDevice"
 import { useSettingsStore } from '@/pinia/stores/settings';
-
+import Screenfull from "@@/components/Screenfull/index.vue"
 import SearchMenu from "@@/components/SearchMenu/index.vue"
-
+import ThemeSwitch from "@@/components/ThemeSwitch/index.vue"
+import Notify from "@@/components/Notify/index.vue"
+import { useUserStore } from "@/pinia/stores/user"
+import { UserFilled } from "@element-plus/icons-vue"
+import { el } from "element-plus/es/locales.mjs";
+import { router } from "@/router";
 const { isTop } = useLayoutMode()
 const { isMobile } = useDevice()
 const appStore = useAppStore()
 const settingsStore = useSettingsStore()
 const { showNotify, showThemeSwitch, showScreenfull, showSearchMenu } = storeToRefs(settingsStore)
+const userStore = useUserStore()
+
 // 切换侧边栏
 function toggleSidebar() {
     appStore.toggleSidebar(false)
+}
+// 退出登录
+function logout() {
+    userStore.logout()
+    router.push("/login")
 }
 </script>
 <template>
@@ -31,8 +43,20 @@ function toggleSidebar() {
             <Notify v-if="showNotify" class="right-menu-item" />
             <el-dropdown>
                 <div class="right-menu-item user">
-
+                    <el-avatar :icon="UserFilled" :size="30"/>
+                    <span>{{ userStore.username }}</span>
                 </div>
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <a target="_blank" href="https://github.com/un-pany/v3-admin-vite">
+                            <el-dropdown-item>Github</el-dropdown-item>
+                        </a>
+                        <a target="_blank" href="https://gitee.com/un-pany/v3-admin-vite">
+                            <el-dropdown-item>Gitee</el-dropdown-item>
+                        </a>
+                        <el-dropdown-item divided @click="logout">退出登录</el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
             </el-dropdown>
         </div>
     </div>

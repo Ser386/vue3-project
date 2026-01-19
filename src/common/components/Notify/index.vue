@@ -1,41 +1,88 @@
-<script setup lang="ts">
-import { ref } from 'vue'
+<script lang="ts" setup>
+import type { NotifyItem } from "./type"
+import { messageData, notifyData, todoData } from "./data"
+import { Bell } from "@element-plus/icons-vue"
+import List from "./List.vue"
 
-defineProps<{ msg: string }>()
+type TabName = "通知" | "消息" | "待办"
+interface DataItem {
+  name: TabName
+  type: "primary" | "success" | "warning" | "danger" | "info"
+  list: NotifyItem[]
+}
+// 所有数据
+const data=ref<DataItem[]>([
+  // 通知数据
+  {
+    name: "通知",
+    type: "primary",
+    list: notifyData
+  },
+  // 消息数据
+  {
+    name: "消息",
+    type: "danger",
+    list: messageData
+  },
+  // 待办数据
+  {
+    name: "待办",
+    type: "warning",
+    list: todoData
+  }
+])
+// 面板宽度
+const popoverWidth=350
+// 角标当前值
+const badgeValue=computed(()=>data.value.reduce((sum,item)=>sum+item.list.length,0))
+// 角标最大值
+const badgeMax=99
+// 当前Tab
+const activeName=ref<TabName>("通知")
+function handleHistory(){
+  ElMessage.success(`跳转到${activeName.value}历史页面`)
+}
 
-const count = ref(0)
 </script>
-
 <template>
-  <h1>{{ msg }}</h1>
+  <div class="notify">
+    <el-popover placement="bottom" :width="popoverWidth" trigger="click">
+      <template #reference>
+        <el-badge :value="badgeValue" :max="badgeMax" :hidden="badgeValue===0">
+          <el-tooltip effect="dark" content="消息通知" placement="bottom">
+            <el-icon :size="20">
+              <Bell/>
+            </el-icon>
+          </el-tooltip>
+        </el-badge>
+      </template>
+      <template #default>
+        <el-tabs v-model="activeName" class="demo-tabs" stretch>
+          <el-tab-pane v-for="(item,index) in data" :key="index" :name="item.name">
+            <template #label>
+              {{ item.name }}
+              <el-badge :value="item.list.length" :max="badgeMax" :type="item.type"/>
 
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
+            </template>
+            <el-scrollbar height="400px">
+              <List :data="item.list"/> 
+            </el-scrollbar>
+          </el-tab-pane>
+        </el-tabs>
+        <div class="notify-history">
+          <el-button link @click="handleHistory">
+            查看{{ activeName }}历史
+          </el-button>
+        </div>
+      </template>
+
+    </el-popover>
   </div>
-
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Learn more about IDE Support for Vue in the
-    <a
-      href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
-      target="_blank"
-      >Vue Docs Scaling up Guide</a
-    >.
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
 </template>
-
-<style scoped>
-.read-the-docs {
-  color: #888;
+<style lang="scss" scoped>
+.notify-history {
+  text-align: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--el-border-color);
 }
 </style>

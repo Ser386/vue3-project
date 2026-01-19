@@ -4,6 +4,8 @@ import { useDevice } from "@@/composables/useDevice"
 import { isExternal } from "@@/utils/validate"
 import { cloneDeep, debounce } from "lodash-es"
 import { usePermissionStore } from "@/pinia/stores/permission"
+import Footer from "./Footer.vue"
+import Result from "./Result.vue"
 const router = useRouter()
 //接收夫父组件传递的modelValue
 const modelValue = defineModel<boolean>({ required: true })
@@ -31,6 +33,7 @@ const isPressUpOrDown = ref<boolean>(false)
 
 const activeRouteName = ref<RouteRecordNameGeneric | undefined>(undefined)
 
+    // 把template中的ref="resultRef"自动注入到resultRef.value 中
 const resultRef = useTemplateRef("resultRef")
 const scrollbarRef = useTemplateRef("scrollbarRef")
 
@@ -132,8 +135,12 @@ const handleSearch = debounce(() => {
 })
 </script>
 <template>
-    <el-dialog v-model="modelValue" :before-close="handleClose" :width="modelWidth" top="5vh"
-        class="search-modal_private" append-to-body @open="inputRef?.focus()" @closed="inputRef?.blur()"
+    <el-dialog 
+    v-model="modelValue" 
+    :before-close="handleClose" 
+    :width="modelWidth" top="5vh"
+        class="search-modal_private" append-to-body 
+        @opened="inputRef?.focus()" @closed="inputRef?.blur()"
         @keydown.up="handleUp" @keydown.down="handleDown" @keydown.enter="handleEnter"
         @keyup.up.down="handleReleaseUpOrDown">
 
@@ -146,10 +153,10 @@ const handleSearch = debounce(() => {
         <el-empty v-if="result.length === 0" description="暂无搜索结果" :image-size="100" />
         <template v-else>
             <p>搜索结果</p>
-            <el-scollbar ref="scrollbarRef" max-height="40vh" always>
+            <el-scrollbar ref="scrollbarRef" max-height="40vh" always>
                 <Result ref="resultRef" v-model="activeRouteName" :data="result" :is-press-up-or-down="isPressUpOrDown"
                     @click="handleEnter" />
-            </el-scollbar>
+            </el-scrollbar>
         </template>
         <template #footer>
             <Footer :total="result.length"/>
@@ -157,7 +164,7 @@ const handleSearch = debounce(() => {
     </el-dialog>
 </template>
 <style lang="scss">
-.search-modal__private {
+.search-modal_private {
   .svg-icon {
     font-size: 18px;
   }

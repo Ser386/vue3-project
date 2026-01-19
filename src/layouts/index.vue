@@ -7,10 +7,10 @@
     import { useSettingsStore } from "@/pinia/stores/settings";
     import {getCssVar,setCssVar} from "@@/utils/css"
 import { router } from "@/router";
-    // import {useWatermark} from "@@/composables/useWatermark"
+    import {useWatermark} from "@@/composables/useWatermark"
     
     
-
+    const {setWatermark,clearWatermark}=useWatermark()
     const {isLeft,isTop,isLeftTop}=useLayoutMode()
     const {isMobile}=useDevice()
     const settingsStore=useSettingsStore()
@@ -22,9 +22,9 @@ import { router } from "@/router";
         showTagsView.value?setCssVar(cssVarName,v3TagsviewHeight):setCssVar(cssVarName,"0px")
     })
     // 开启或关闭系统水印
-    // watchEffect(()=>{
-    //     showWatermark.value?setWatermark(import.meta.env.VITE_APP_TITLE):clearWatermark()
-    // })
+    watchEffect(()=>{
+        showWatermark.value?setWatermark(import.meta.env.VITE_APP_TITLE):clearWatermark()
+    })
 
 </script>
 

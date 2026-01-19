@@ -3,7 +3,7 @@ import { constantRoutes, dynamicRoutes } from "@/router"
 import { routerConfig } from '@/router/config'
 import { flatMultiLevelRoutes } from '@/router/helper'
 import { pinia } from '..'
-// route:当前路由,判断当前路由是否有权限
+// route:当前路由,判断当前路由是否有权限 roles当前登录角色所具有的权限
 function hasPermission(roles:string[],route:RouteRecordRaw){
     // 获取路由允许访问的角色列表
     const routeRoles = route.meta?.roles

@@ -67,12 +67,12 @@ export const useTagsViewStore=defineStore("tags-view",()=>{
 
     }
     // 删除其他标签，保留当前+固定标签
-    const delOtherVisitedViews=(view:TagView)=>{
+    const delOthersVisitedViews=(view:TagView)=>{
         // filter会返回一个新数组，只保留满足条件的元素 affix表示固定标签 view表示当前标签
         visitedViews.value=visitedViews.value.filter(v=>v.meta?.affix || v.path===view.path)
     }
     // 删除其他缓存
-    const delOtherCachedViews=(view:TagView)=>{
+    const delOthersCachedViews=(view:TagView)=>{
         if(typeof view.name !=="string") return
         const index=cachedViews.value.indexOf(view.name)
         if(index !== -1){
@@ -99,8 +99,8 @@ export const useTagsViewStore=defineStore("tags-view",()=>{
         delAllVisitedViews,
         delCachedView,
         delVisitedView,
-        delOtherCachedViews,
-        delOtherVisitedViews
+        delOthersCachedViews,
+        delOthersVisitedViews
     }
 
 })

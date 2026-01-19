@@ -5,7 +5,6 @@ const visible = ref<boolean>(false)
 
 function handleOpen() {
     visible.value = true
-
 }
 </script>
 <template>
@@ -14,6 +13,14 @@ function handleOpen() {
             <SvgIcon name="search" @click="handleOpen" class="svg-icon" />
         </el-tooltip>
         <!-- 一个弹窗组件 通过visited 控制显示隐藏 -->
-        <Model v-model="visible" />
+        <Modal v-model="visible" />
     </div>
 </template>
+<style lang="scss" scoped>
+.svg-icon {
+  font-size: 20px;
+  &:focus {
+    outline: none;
+  }
+}
+</style>
